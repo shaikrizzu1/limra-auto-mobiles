@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="Limra Auto Mobiles - Trusted Auto Parts & Services in Hyderabad. Genuine spare parts, repair support, and accessories.">
+  <title>Limra Auto Mobiles | Premium Auto Parts & Service</title>
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Google Fonts for premium look -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background-color: #0a0a0a;
+      color: #e0e0e0;
+      line-height: 1.6;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    h1, h2, h3, .logo, .nav-links a {
+      font-family: 'Rajdhani', 'Outfit', sans-serif;
+    }
+
+    /* Primary Colors */
+    :root {
+      --deep-dark: #0c0c0c;
+      --dark-card: #1a1a1a;
+      --red-primary: #d90429;
+      --red-glow: #ef233c;
+      --text-light: #f0f0f0;
+      --text-muted: #b0b0b0;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --shadow-red: 0 10px 25px -8px rgba(217, 4, 41, 0.4);
+    }
+
+    /* Loading Animation */
+    #loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #0a0a0a;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+    .loader-hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+    .spinner {
+      width: 60px;
+      height: 60px;
+      border: 4px solid rgba(217, 4, 41, 0.2);
+      border-top: 4px solid var(--red-primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 20px;
+    }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+    /* Sticky Navbar */
+    .navbar {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      background: rgba(10, 10, 10, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 1000;
+      border-bottom: 1px solid rgba(217, 4, 41, 0.3);
+      padding: 0.8rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.4s ease;
+    }
+    .logo {
+      font-size: 2rem;
+      font-weight: 700;
+      color: white;
+      letter-spacing: 1px;
+    }
+    .logo span {
+      color: var(--red-primary);
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: #ccc;
+      font-weight: 600;
+      font-size: 1.2rem;
+      letter-spacing: 0.5px;
+      transition: color 0.3s ease;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: var(--red-primary);
+      transition: width 0.3s;
+    }
+    .nav-links a:hover { color: white; }
+    .nav-links a:hover::after { width: 100%; }
+    .menu-toggle {
+      display: none;
+      font-size: 1.8rem;
+      color: white;
+      cursor: pointer;
+    }
+
+    /* Sections general */
+    section {
+      padding: 4rem 2rem;
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+    .section-title {
+      font-size: 2.8rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 2.5rem;
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      position: relative;
+    }
+    .section-title span {
+      color: var(--red-primary);
+    }
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 4px;
+      background: var(--red-primary);
+      margin: 0.8rem auto 0;
+      border-radius: 2px;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, rgba(0,0,0,0.82) 0%, rgba(20,20,20,0.75) 100%), 
+                  url('https://images.unsplash.com/photo-1617886903355-9354bb10f778?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat;
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      position: relative;
+    }
+    .hero-content {
+      animation: fadeInUp 1s ease;
+    }
+    .hero h1 {
+      font-size: 4.5rem;
+      font-weight: 800;
+      letter-spacing: 3px;
+      text-shadow: 0 0 20px rgba(0,0,0,0.7);
+    }
+    .hero .subtitle {
+      font-size: 1.8rem;
+      margin: 1rem 0 2rem;
+      color: #ddd;
+      font-weight: 300;
+    }
+    .btn-group {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: 0.9rem 2.2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1.2rem;
+      text-decoration: none;
+      transition: all 0.4s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 2px solid transparent;
+    }
+    .btn-primary {
+      background: var(--red-primary);
+      color: white;
+      box-shadow: var(--shadow-red);
+    }
+    .btn-primary:hover {
+      background: transparent;
+      border-color: var(--red-primary);
+      color: var(--red-primary);
+      transform: translateY(-3px);
+    }
+    .btn-outline {
+      border: 2px solid white;
+      color: white;
+    }
+    .btn-outline:hover {
+      background: white;
+      color: black;
+      transform: translateY(-3px);
+    }
+
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(40px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* About */
+    .about-text {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+      font-size: 1.2rem;
+      color: #ccc;
+      background: rgba(26,26,26,0.7);
+      padding: 2rem;
+      border-radius: 20px;
+      backdrop-filter: blur(5px);
+      border: 1px solid var(--border-subtle);
+    }
+
+    /* Services Cards */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+    .service-card {
+      background: var(--dark-card);
+      padding: 2rem 1.5rem;
+      border-radius: 24px;
+      text-align: center;
+      transition: all 0.4s ease;
+      border: 1px solid rgba(255,255,255,0.05);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+    }
+    .service-card:hover {
+      transform: translateY(-10px);
+      border-color: var(--red-primary);
+      box-shadow: 0 20px 30px -10px rgba(217,4,41,0.3);
+    }
+    .service-icon {
+      font-size: 2.8rem;
+      color: var(--red-primary);
+      margin-bottom: 1.2rem;
+    }
+    .service-card h3 {
+      color: white;
+      margin-bottom: 0.8rem;
+      font-size: 1.5rem;
+    }
+
+    /* Gallery */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
+    .gallery-item {
+      border-radius: 20px;
+      overflow: hidden;
+      height: 220px;
+      background: #222;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.7);
+      transition: transform 0.4s;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+    .gallery-item:hover img {
+      transform: scale(1.08);
+    }
+
+    /* Contact */
+    .contact-details {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      background: var(--dark-card);
+      padding: 2.5rem;
+      border-radius: 28px;
+      margin-bottom: 2rem;
+    }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 1.3rem;
+    }
+    .contact-item i {
+      font-size: 2rem;
+      color: var(--red-primary);
+    }
+    .map-container {
+      border-radius: 24px;
+      overflow: hidden;
+      border: 2px solid var(--red-primary);
+      height: 350px;
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    /* Footer */
+    .footer {
+      background: #050505;
+      text-align: center;
+      padding: 2.5rem 1rem;
+      border-top: 2px solid var(--red-primary);
+      margin-top: 2rem;
+    }
+    .social-icons {
+      margin: 1.5rem 0;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+    }
+    .social-icons a {
+      color: #aaa;
+      font-size: 1.8rem;
+      transition: 0.3s;
+    }
+    .social-icons a:hover {
+      color: var(--red-primary);
+      transform: scale(1.2);
+    }
+
+    /* Floating WhatsApp */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background: #25D366;
+      color: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      box-shadow: 0 8px 20px rgba(37,211,102,0.5);
+      z-index: 1100;
+      transition: 0.3s;
+      text-decoration: none;
+    }
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+      background: #1ebc59;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        background: #0a0a0aee;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        padding: 1.5rem;
+        gap: 1.2rem;
+      }
+      .nav-links.active {
+        display: flex;
+      }
+      .menu-toggle {
+        display: block;
+      }
+      .hero h1 {
+        font-size: 2.8rem;
+      }
+      .hero .subtitle {
+        font-size: 1.3rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Loading Animation -->
+  <div id="loader">
+    <div class="spinner"></div>
+    <p style="color: #d90429; font-weight: 600;">Limra Auto Mobiles</p>
+  </div>
+
+  <!-- Sticky Navbar -->
+  <nav class="navbar">
+    <div class="logo">Limra<span>Auto</span></div>
+    <div class="menu-toggle" id="menuToggle">
+      <i class="fas fa-bars"></i>
+    </div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <div class="hero-content">
+      <h1>LIMRA AUTO MOBILES</h1>
+      <p class="subtitle">Trusted Auto Parts & Services in Hyderabad</p>
+      <div class="btn-group">
+        <a href="tel:+918501070145" class="btn btn-primary"><i class="fas fa-phone-alt"></i> Call Now</a>
+        <a href="#contact" class="btn btn-outline"><i class="fas fa-map-marker-alt"></i> Get Location</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about">
+    <h2 class="section-title"><span>About</span> Us</h2>
+    <div class="about-text">
+      <p>Limra Auto Mobiles is a premier destination for automobile spare parts and professional service in Hyderabad. Located near Fakhr-e-Millat, Moghalpura, we are committed to delivering genuine parts, exceptional customer support, and reliable vehicle maintenance. With years of expertise, we ensure satisfaction through quality products and trusted repair assistance.</p>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services">
+    <h2 class="section-title">Our <span>Services</span></h2>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon"><i class="fas fa-motorcycle"></i></div>
+        <h3>Bike Spare Parts</h3>
+        <p>Wide range of genuine two-wheeler components.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><i class="fas fa-car-side"></i></div>
+        <h3>Auto Accessories</h3>
+        <p>Premium accessories for style and comfort.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><i class="fas fa-tools"></i></div>
+        <h3>Vehicle Maintenance</h3>
+        <p>Expert care and periodic service solutions.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><i class="fas fa-certificate"></i></div>
+        <h3>Genuine Parts</h3>
+        <p>100% authentic parts with warranty assurance.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><i class="fas fa-wrench"></i></div>
+        <h3>Repair Support</h3>
+        <p>Skilled mechanics for all major repairs.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><i class="fas fa-headset"></i></div>
+        <h3>Customer Assistance</h3>
+        <p>Dedicated support for queries and guidance.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery Section -->
+  <section id="gallery">
+    <h2 class="section-title">Auto <span>Gallery</span></h2>
+    <div class="gallery-grid">
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?q=80&w=2070&auto=format&fit=crop" alt="Auto part"></div>
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=1974&auto=format&fit=crop" alt="Engine service"></div>
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1530046339160-ce3e530c7d2f?q=80&w=2070&auto=format&fit=crop" alt="Car parts"></div>
+      <div class="gallery-item"><img src="https://images.unsplash.com/photo-1487754180451-c456f719a1fc?q=80&w=2070&auto=format&fit=crop" alt="Mechanic work"></div>
+    </div>
+  </section>
+
+  <!-- Contact & Map Section -->
+  <section id="contact">
+    <h2 class="section-title">Contact <span>Us</span></h2>
+    <div class="contact-details">
+      <div class="contact-item">
+        <i class="fas fa-phone-alt"></i>
+        <div><strong>Phone 1:</strong> <a href="tel:+918501070145" style="color:white; text-decoration:none;">8501070145</a></div>
+      </div>
+      <div class="contact-item">
+        <i class="fas fa-phone-alt"></i>
+        <div><strong>Phone 2:</strong> <a href="tel:+919700017775" style="color:white; text-decoration:none;">9700017775</a></div>
+      </div>
+      <div class="contact-item">
+        <i class="fas fa-map-marker-alt"></i>
+        <div><strong>Location:</strong> Near Fakhr-e-Millat, Moghalpura, Hyderabad</div>
+      </div>
+    </div>
+    <div class="map-container">
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3807.89212513785!2d78.4765!3d17.3685!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb986f4c2f3f2b%3A0x9bd8c5b5e5c5b5e!2sMoghalpura%2C%20Hyderabad%2C%20Telangana!5e0!3m2!1sen!2sin!4v1690000000000" 
+        allowfullscreen="" 
+        loading="lazy" 
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Limra Auto Mobiles Location">
+      </iframe>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <h2 style="color:white; letter-spacing:1px;">Limra Auto Mobiles</h2>
+    <p style="color:#aaa;">Trusted Auto Parts & Services</p>
+    <div class="social-icons">
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-whatsapp"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+    </div>
+    <p style="color:#666; margin-top:1rem;">📞 8501070145 | 9700017775</p>
+    <p style="color:#555; font-size:0.9rem;">&copy; 2025 Limra Auto Mobiles. All rights reserved.</p>
+  </footer>
+
+  <!-- Floating WhatsApp Button -->
+  <a href="https://wa.me/918501070145?text=Hello%20Limra%20Auto%20Mobiles%2C%20I%20need%20assistance." 
+     class="whatsapp-float" target="_blank" title="Chat on WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <script>
+    (function() {
+      // Loader hide after page load
+      window.addEventListener('load', function() {
+        const loader = document.getElementById('loader');
+        if (loader) {
+          loader.classList.add('loader-hidden');
+          setTimeout(() => { if(loader) loader.style.display = 'none'; }, 800);
+        }
+      });
+
+      // Mobile menu toggle
+      const menuToggle = document.getElementById('menuToggle');
+      const navLinks = document.getElementById('navLinks');
+      if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', () => {
+          navLinks.classList.toggle('active');
+        });
+        // Close menu on link click (mobile)
+        navLinks.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', () => {
+            navLinks.classList.remove('active');
+          });
+        });
+      }
+
+      // Smooth scrolling for anchor links (fallback for older browsers)
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          const href = this.getAttribute('href');
+          if (href === "#") return;
+          const target = document.querySelector(href);
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth' });
+          }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
